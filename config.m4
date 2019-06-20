@@ -133,8 +133,8 @@ dnl Check for msgpack
 
   AC_MSG_CHECKING([for redis msgpack support])
   if test "$PHP_REDIS_MSGPACK" != "no"; then
-    msgpack_version=`grep -o 'PHP_MSGPACK_VERSION "[0-9\.]\+"' $msgpack_inc_path/ext/msgpack/php_msgpack.h | awk '{print $2}' | tr -d '"'`
-    if expr $msgpack_version "<" "2.0.3" > /dev/null; then
+    grep 'int php_msgpack_unserialize' $msgpack_inc_path/ext/msgpack/php_msgpack.h 2>&1
+    if test $? -ne 0 ; then
       AC_MSG_ERROR([msgpack 2.0.3 or greater required])
     else
       AC_MSG_RESULT([enabled])
